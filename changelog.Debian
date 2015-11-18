@@ -1,0 +1,20 @@
+regexchar (0.9.0.6-1) experimental; urgency=low
+
+  * New release.
+
+regexchar (0.9.0.7-1) experimental; urgency=low
+
+  * Uploaded to <http://hackage.haskell.org/package/regexchar>.
+
+regexchar (0.9.0.8-1) experimental; urgency=low
+
+  *
+
+ -- Alistair Ward <regexchar@functionalley.eu>  Wed, 12 Jan 2011 00:00:00 +0000
+
+regexchar (0.9.0.10-1) experimental; urgency=low
+
+  *
+
+ -- Alistair Ward <regexchar@functionalley.eu>  Sat, 06 May 2012 00:00:00 +0000
+

@@ -1,0 +1,13 @@
+Package:	regexchar
+Version:	0.9.0.14-1
+Section:	text
+Priority:	optional
+Architecture:	amd64
+Depends:	libc6
+Installed-size:	3222
+Maintainer:	Dr. Alistair Ward <regexchar@functionalley.eu>
+Provides:
+Homepage:	http://functionalley.eu/RegExChar/regExChar.html
+Description:	POSIX extended regular-expression engine.
+ POSIX extended regex-engine, specialised from the underlying polymorphic engine regexdot, to merely process character-lists, as is typically required.
+

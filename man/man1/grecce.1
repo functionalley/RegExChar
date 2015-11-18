@@ -1,0 +1,209 @@
+.TH grecce 1
+.SH NAME
+\fBgrecce\fR - print lines matching a pattern.
+.SH SYNOPSIS
+\fBgrecce\fR [\fIOPTIONS\fR] \fIFILE\fR ...
+.SH DESCRIPTION
+.PP
+Searches the named input \fIFILE\fRs (or standard input if no files are named, or if \fIFILE\fR is defined as a single hyphen-minus (\fB-\fR)),
+for lines containing a match for \fIregex\fR.
+.PP
+By default, prints the matching lines.
+.SS Supported Regular-expression Syntax
+.IP \(bu
+\fIAnchors\fR, including around \fIsub-expression\fRs.
+.IP \(bu
+Standard \fIgreedy\fR & also \fBPerl\fR-style \fInon-greedy\fR, quantification.
+.IP \(bu
+\fICapture-groups\fR, potentially containing alternative \fIsub-expression\fRs.
+.IP \(bu
+.I Bracket-expressions
+.br
+(including \fBPerl\fR-style \fIshortcuts\fR for; \fB\\d\fR, \fB\\D\fR, \fB\\s\fR, \fB\\S\fR, \fB\\w\fR, \fB\\W\fR)
+.IP \(bu
+Posix \fICharacter-classes\fR;
+.br
+.nf
+\fB[:alnum:]\fR, \fB[:alpha:]\fR, \fB[:ascii:]\fR, \fB[:blank:]\fR, \fB[:cntrl:]\fR, \fB[:digit:]\fR, \fB[:graph:]\fR,
+\fB[:lower:]\fR, \fB[:print:]\fR, \fB[:punct:]\fR, \fB[:space:]\fR, \fB[:upper:]\fR, \fB[:word:]\fR, \fB[:xdigit:]\fR
+.fi
+.SH OPTIONS
+.SS "General Output Control"
+.TP
+\fB-c\fR, \fB--count\fR
+Print only a count of matching lines per file.
+.TP
+\fB-l\fR, \fB--files-with-matches\fR
+List names of files containing at least one match.
+.TP
+\fB-L\fR, \fB--files-without-match\fR
+List names of files not containing any matches.
+.TP
+.B --verbose
+.IP \(bu
+Shows how the input data was captured by \fIregex\fR.
+.IP \(bu
+The output is a triple (\fIprefix\fR, data consumed by \fIregex\fR, \fIsuffix\fR):
+If data is consumed either before, by, or after \fIregex\fR, then the corresponding section contains \fBJust\fR, otherwise it contains \fBNothing\fR.
+.IP \(bu
+If the regex matched, the central section, following \fBJust\fR,
+details the consumption of each term in the \fIregex\fR, in terms of another triple; (\fIprinted term\fR, \fIoffset\fR, \fIinput-data\fR).
+.IP \(bu
+Because of the inherently recursive nature of a regex, the output is actually tree-structured.
+.IP \(bu
+This is an addition to the options available in \fBegrep\fR, & provides a powerful insight into the inner workings of the regex-engine; useful for debugging the regex.
+.SS "Output Line Prefix Control"
+.TP
+\fB-n\fR, \fB--number\fR
+Prepend the line-number of the input, to the output.
+.SS "Matching Control"
+.TP
+\fB-e\fR \fIregex\fR, \fB--regexp=\fR\fIregex\fR
+Define the regex.
+.TP
+\fB-f\fR \fIfile-name\fR, \fB--file=\fR\fIfile-name\fR
+Read the regex from \fIfile-name\fR.
+.TP
+\fB-v\fR, \fB--invert-match\fR
+Select non-matching lines.
+.TP
+\fB--complyStrictlyWithPosix=\fR\fIBool\fR
+Define the offset of input-data, corresponding to a \fIcapture-group\fR which matched zero times, as the artificial value \fB-1\fR specified by \fBPosix\fR.
+This is an addition to the options available in \fBegrep\fR, & is of relatively little use.
+.SS Performance
+.TP
+\fB +RTS -N\fR [\fICores\fR] [\fB-H\fR \fIHeap-size\fR] \fB-RTS\fR
+If the executable has been linked with the threaded GHC-runtime, use \fICores\fR simultaneous threads (defaulting to the number of CPU-cores available),
+to process alternative sub-expressions and multiple files in parallel;
+When specifying this option, it is usually beneficial, given sufficient resources, to suggest a large initial heap-size for the garbage-collector.
+.br
+<http://www.haskell.org/ghc/docs/latest/html/users_guide/using-smp.html#parallel-options>.
+.PP
+These options are rather esoteric & not normally required.
+.br
+\fIBool\fR can be defined as either "\fBTrue\fR" or "\fBFalse\fR".
+.TP
+\fB--abortTrialRepetitionsOnInherentFailure=\fR\fIBool\fR
+If an alternative can't match, irrespective of the subsequent concatenation, then terminate futile trial repetitions.
+.TP
+\fB--catchIncompatibleAnchors=\fR\fIBool\fR
+Avoid futile trial solutions, involving repetitions of anchored alternatives, which must consume data.
+.TP
+\fB--checkExistenceOfInelasticTail=\fR\fIBool\fR
+If \fIregex\fR ends in one or more meta-data, whose repetition-range is precisely defined, check that this sequence exists at the end of the input data.
+.TP
+\fB--checkForUnconsumableData=\fR\fIBool\fR
+Check whether there's no possibility of consuming some of the input data.
+.TP
+\fB--moderateGreed=\fR\fIBool\fR
+Greedily consume data, only up to the limit beyond which, future requirements would be compromised.
+.TP
+\fB--permitReorderingOfAlternatives=\fR\fIBool\fR
+Permit alternatives to be re-ordered, in an attempt to process the cheapest first.
+.TP
+\fB--unrollRepeatedSingletonAlternative=\fR\fIBool\fR
+Unroll repetitions of singleton alternatives; this doesn't affect the result.
+.TP
+\fB--useFirstMatchAmongAlternatives=\fR\fIBool\fR
+Rather than performing an exhaustive search for the optimal choice amongst alternatives, merely select the first that matches; conform to Perl rather than Posix.
+.TP
+\fB--validateMinConsumptionOfAlternatives=\fR\fIBool\fR
+When the number of repetitions of a group of alternatives is precisely specified, check the availability of the resulting minimum data-requirement.
+.SS Match-preference
+.TP
+\fB--preferAlternativesWhichFeedTheGreedy=\fR\fIBool\fR
+Prefer solutions in which the choice of alternatives directs data from non-greedy to greedy consumers.
+.TP
+\fB--preferAlternativesWhichMimickUnrolling=\fR\fIBool\fR
+Prefer solutions in which the choice of alternatives consumes data like the unrolled repeatable group.
+.TP
+\fB--preferFewerRepeatedAlternatives=\fR\fIBool\fR
+Prefer solutions employing fewer repetitions of alternatives, to discourage the capture of null lists.
+.SS "Generic Program-information"
+.TP
+.B --version
+Output version-information & exit.
+.TP
+\fB-?\fR, \fB--help\fR
+Display help & exit.
+.TP
+.B --printCurrentSettings
+Display the currently defined options & then exit.
+.SS Test
+.TP
+\fB--assert=\fR\fIfile\fR
+Confirms the assertions in the specified file from the \fBdata\fR-directory of the distribution; then exits.
+.SH EXIT-STATUS
+\fB0\fR on success, and >\fB0\fR if an error occurs.
+.SH EXAMPLES
+.PP
+.nf
+\fBecho\fR 'Function Alley' | \fBgrecce\fR 'n\\sA'
+Function Alley
+.fi
+.PP
+.nf
+\fBecho\fR 'Function  Alley' | \fBgrecce\fR --verbose '[[:alpha:]]+'
+(Just (.*?,0,""),Just [([[:alpha:]]+,0,"Function")],Just (.*,8,"  Alley"))
+.fi
+.SS Pathological
+.PP
+.nf
+\fBecho\fR 'aaa' | \fBgrecce\fR --verbose '^(a?){3}(a){3}$'
+(Nothing,Just [[[('a'?,0,"")],[('a'?,0,"")],[('a'?,0,"")]],[[('a',0,"a")],[('a',1,"a")],[('a',2,"a")]]],Nothing)
+.fi
+.PP
+.nf
+\fBecho\fR 'azazaz' | \fBgrecce\fR --verbose '^(.*z){3}$'
+(Nothing,Just [[[(.*,0,"a"),('z',1,"z")],[(.*,2,"a"),('z',3,"z")],[(.*,4,"a"),('z',5,"z")]]],Nothing)
+.fi
+.PP
+.nf
+\fBecho\fR 'aaaaaa' | \fBgrecce\fR --verbose '^a*a+a{2,}a{3,}$'
+(Nothing,Just [('a'*,0,""),('a'+,0,"a"),('a'{2,},1,"aa"),('a'{3,},3,"aaa")],Nothing)
+.fi
+.PP
+.nf
+\fBecho\fR 'aaaaaaaabc' | \fBgrecce\fR --verbose '(a|a{2})*c'
+(Just (.*?,0,"aaaaaaaab"),Just [[],('c',9,"c")],Just (.*,10,""))
+.fi
+.SH FILES
+.IP \(bu
+.I data/Tests_ATTBasic.txt
+.IP \(bu
+.I data/Tests_ATTInterpretation.txt
+.IP \(bu
+.I data/Tests.txt
+.SH AUTHOR
+Written by Dr. Alistair Ward.
+.SH BUGS
+.SS "REPORTING BUGS"
+Report bugs to <\fBgrecce@functionalley.eu\fR>.
+.SS Known Bugs
+There is no support for either \fIBack-references\fR or \fICase-insensitivity\fR.
+.PP
+The only support for \fIZero-width assertions\fR, is for \fIAnchors\fR.
+.PP
+File-reading is rather slow, due to the inability to optimise the underlying polymorphic regex-engine for Characters.
+.SH COPYRIGHT
+Copyright \(co 2010-2015 Dr. Alistair Ward
+.PP
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+.PP
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+.PP
+You should have received a copy of the GNU General Public License along with this program. If not, see \fB<http://www.gnu.org/licenses/>\fR.
+.SH "SEE ALSO"
+.IP \(bu
+Home-page: \fBhttp://functionalley.eu/RegExChar/regExChar.html\fR
+.IP \(bu
+.B http://hackage.haskell.org/package/regexchar
+.IP \(bu
+.B https://github.com/functionalley/RegExChar
+.IP \(bu
+Source-documentation is generated by "\fBHaddock\fR", & is available in the distribution.
+.IP \(bu
+.B http://www.haskell.org/haddock/
+.IP \(bu
+\fBRegExDot\fR, the polymorphic regex-engine from which this is built.
+
