@@ -22,7 +22,6 @@
 
 module Main(main) where
 
-import			Control.Arrow((***))
 import qualified	Control.Monad
 import qualified	Grecce.Test.QC.ExtendedRegExChar	as Test.QC.ExtendedRegExChar
 import qualified	Grecce.Test.QC.MetaChar			as Test.QC.MetaChar
@@ -33,14 +32,10 @@ import qualified	ToolShed.Test.QuickCheck.Result
 -- | Entry-point.
 main :: IO ()
 main	= mapM_ (
-	snd {-exit-status-} . (
-		putStrLn . (++ ":") *** (
-			>>= (`Control.Monad.unless` System.Exit.exitFailure) . all ToolShed.Test.QuickCheck.Result.isSuccessful
-		)
-	)
+	(`Control.Monad.unless` System.Exit.exitFailure) . all ToolShed.Test.QuickCheck.Result.isSuccessful =<<
  ) [
-	("MetaChar",		Test.QC.MetaChar.results),
-	("RepeatableMetaChar",	Test.QC.RepeatableMetaChar.results),
-	("ExtendedRegExChar",	Test.QC.ExtendedRegExChar.results)
+	Test.QC.MetaChar.results,
+	Test.QC.RepeatableMetaChar.results,
+	Test.QC.ExtendedRegExChar.results
  ]
 
