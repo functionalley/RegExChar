@@ -148,45 +148,49 @@ results	= sequence [
 	Test.QuickCheck.quickCheckResult prop_io',
 	Test.QuickCheck.quickCheckResult prop_isValid,
 	Test.QuickCheck.quickCheckResult prop_starHeight,
-	Test.QuickCheck.quickCheckResult prop_double
+	Test.QuickCheck.quickCheckResult prop_double,
+	Test.QuickCheck.quickCheckResult prop_read
  ] where
-		prop_consumptionProfile, prop_consumptionProfile2, prop_io, prop_io', prop_isValid, prop_starHeight :: ExtendedRegExChar.ExtendedRegExChar -> Test.QuickCheck.Property
-		prop_consumptionProfile r	= Test.QuickCheck.label "prop_consumptionProfile" $ Data.Maybe.maybe True (>= minData) maybeMaxData && (
-			not b == all (not . RegExDot.Consumer.getHasSpecificRequirement) (RegExDot.RegEx.concatenation $ ExtendedRegExChar.extendedRegEx r)
-		 )
-			where
-				RegExDot.ConsumptionProfile.MkConsumptionProfile {
-					RegExDot.ConsumptionProfile.consumptionBounds		= (minData, maybeMaxData),
-					RegExDot.ConsumptionProfile.hasSpecificRequirement	= b
-				} = RegExDot.Consumer.consumptionProfile r
+	prop_consumptionProfile, prop_consumptionProfile2, prop_io, prop_io', prop_isValid, prop_starHeight :: ExtendedRegExChar.ExtendedRegExChar -> Test.QuickCheck.Property
+	prop_consumptionProfile r	= Test.QuickCheck.label "prop_consumptionProfile" $ Data.Maybe.maybe True (>= minData) maybeMaxData && (
+		not b == all (not . RegExDot.Consumer.getHasSpecificRequirement) (RegExDot.RegEx.concatenation $ ExtendedRegExChar.extendedRegEx r)
+	 ) where
+		RegExDot.ConsumptionProfile.MkConsumptionProfile {
+			RegExDot.ConsumptionProfile.consumptionBounds		= (minData, maybeMaxData),
+			RegExDot.ConsumptionProfile.hasSpecificRequirement	= b
+		} = RegExDot.Consumer.consumptionProfile r
 
-		prop_consumptionProfile2 r	= RegExDot.RegEx.isDefined (ExtendedRegExChar.extendedRegEx r)	==> Test.QuickCheck.label "prop_consumptionProfile2" $ hasSpecificRequirement || canConsumeAnything	-- There's either; a requirement for at least one specific, or we can consume at least one arbitrary; input datum.
-			where
-				RegExDot.ConsumptionProfile.MkConsumptionProfile {
-					RegExDot.ConsumptionProfile.hasSpecificRequirement	= hasSpecificRequirement,
-					RegExDot.ConsumptionProfile.canConsumeAnything		= canConsumeAnything
-				} = RegExDot.Consumer.consumptionProfile r
+	prop_consumptionProfile2 r	= RegExDot.RegEx.isDefined (ExtendedRegExChar.extendedRegEx r)	==> Test.QuickCheck.label "prop_consumptionProfile2" $ hasSpecificRequirement || canConsumeAnything	where	-- There's either; a requirement for at least one specific, or we can consume at least one arbitrary; input datum.
+		RegExDot.ConsumptionProfile.MkConsumptionProfile {
+			RegExDot.ConsumptionProfile.hasSpecificRequirement	= hasSpecificRequirement,
+			RegExDot.ConsumptionProfile.canConsumeAnything		= canConsumeAnything
+		} = RegExDot.Consumer.consumptionProfile r
 
-		prop_io			= Test.QuickCheck.label "prop_io" . ToolShed.Test.ReversibleIO.isReversible
-		prop_io' r		= Test.QuickCheck.label "prop_io'" $ ToolShed.Test.ReversibleIO.isReversible r'	where r' = ExtendedRegExChar.extendedRegEx r	-- Check "RegExDot.RegEx.ExtendedRegEx Char" too.
-		prop_isValid r		= Test.QuickCheck.label "prop_isValid" $ ToolShed.SelfValidate.isValid r
-		prop_starHeight r	= Test.QuickCheck.label "prop_starHeight" $ (RegExDot.Consumer.starHeight r == 0) == RegExDot.ConsumptionBounds.isPrecise (RegExDot.Consumer.getConsumptionBounds r)
+	prop_io			= Test.QuickCheck.label "prop_io" . ToolShed.Test.ReversibleIO.isReversible
+	prop_io' r		= Test.QuickCheck.label "prop_io'" $ ToolShed.Test.ReversibleIO.isReversible r'	where r' = ExtendedRegExChar.extendedRegEx r	-- Check "RegExDot.RegEx.ExtendedRegEx Char" too.
+	prop_isValid r		= Test.QuickCheck.label "prop_isValid" $ ToolShed.SelfValidate.isValid r
+	prop_starHeight r	= Test.QuickCheck.label "prop_starHeight" $ (RegExDot.Consumer.starHeight r == 0) == RegExDot.ConsumptionBounds.isPrecise (RegExDot.Consumer.getConsumptionBounds r)
 
-		prop_double :: Double -> Test.QuickCheck.Property
-		prop_double d	= Test.QuickCheck.label "prop_double" $ RegExDot.RegEx.extractDataFromMatchList `fmap` RegExDot.Result.getMatchList result == Just s	where
-			s :: String
-			s	= show $ d * 1e6	-- Implementation of show, uses exponential notation, when the number is large.
+	prop_double :: Double -> Test.QuickCheck.Property
+	prop_double d	= Test.QuickCheck.label "prop_double" $ RegExDot.RegEx.extractDataFromMatchList `fmap` RegExDot.Result.getMatchList result == Just s	where
+		s :: String
+		s	= show $ d * 1e6	-- Implementation of show, uses exponential notation, when the number is large.
 
-			result :: RegExDot.RegEx.Result Char
-			result = s +~ RegExDot.RegExOpts.mkRegEx (
-				(Just RegExDot.Anchor.Bow, Just RegExDot.Anchor.Stern) <~> sign ?: digits +: map (
-					RegExDot.Repeatable.zeroOrOne . RegExDot.RegEx.captureGroup . map (RegExDot.Anchor.unanchored <~>) . return {-to List-monad-}
-				) [
-					RegExDot.RegEx.Require (RegExDot.Meta.Literal '.') -: digits +: [],
-					RegExDot.RegEx.Require (RegExDot.Meta.AnyOf $ map RegExDot.BracketExpressionMember.Literal "eE") -: sign ?: digits +: []
-				]
-			 ) where
-				sign, digits :: RegExDot.RegEx.Pattern Char
-				sign	= RegExDot.RegEx.Require . RegExDot.Meta.AnyOf $ map RegExDot.BracketExpressionMember.Literal "+-"
-				digits	= RegExDot.RegEx.Require . RegExDot.Meta.AnyOf $ map RegExDot.BracketExpressionMember.Literal ['0' .. '9']
+		result :: RegExDot.RegEx.Result Char
+		result = s +~ RegExDot.RegExOpts.mkRegEx (
+			(Just RegExDot.Anchor.Bow, Just RegExDot.Anchor.Stern) <~> sign ?: digits +: map (
+				RegExDot.Repeatable.zeroOrOne . RegExDot.RegEx.captureGroup . map (RegExDot.Anchor.unanchored <~>) . return {-to List-monad-}
+			) [
+				RegExDot.RegEx.Require (RegExDot.Meta.Literal '.') -: digits +: [],
+				RegExDot.RegEx.Require (RegExDot.Meta.AnyOf $ map RegExDot.BracketExpressionMember.Literal "eE") -: sign ?: digits +: []
+			]
+		 ) where
+			sign, digits :: RegExDot.RegEx.Pattern Char
+			sign	= RegExDot.RegEx.Require . RegExDot.Meta.AnyOf $ map RegExDot.BracketExpressionMember.Literal "+-"
+			digits	= RegExDot.RegEx.Require . RegExDot.Meta.AnyOf $ map RegExDot.BracketExpressionMember.Literal ['0' .. '9']
+
+	prop_read :: String -> Test.QuickCheck.Property
+	prop_read garbage	= Test.QuickCheck.label "prop_read" $ case (reads garbage :: [(ExtendedRegExChar.ExtendedRegExChar, String)]) of
+		[(_, _)]	-> True
+		_		-> True	-- Unless the read-implementation throws an exception.
 

@@ -142,12 +142,10 @@ instance Read ExtendedRegExChar	where
 								return {-to ParsecT-monad-} []
 							 ]
 
-		in (
-			error . showString "RegExChar.ExtendedRegExChar.readsPrec:\tparse-error; " . show	-- Failure to parse.
-		) `either` (
+		in const [] `either` (
 			\pair@(extendedRegExChar, _)	-> if ToolShed.SelfValidate.isValid extendedRegExChar
 				then [pair]
-				else error $ ToolShed.SelfValidate.getFirstError extendedRegExChar	-- Parsed OK, but invalid.
+				else []
 		) $ Parsec.parse (
 			(,) <$> extendedRegExCharParser <*> Parsec.getInput
 		) "ExtendedRegExChar" s

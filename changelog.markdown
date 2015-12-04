@@ -93,3 +93,5 @@
 * Reverted to calling "**error**" rather than "**Control.Monad.fail**", since the **String**-argument for the latter is discarded in **Monad**-implementations other than **IO**.
 * Uploaded to [GitHub](https://github.com/functionalley/RegExChar.git).
 * Simplified file **src-test/Main.hs**.
+* Added **prop_read** to modules; **Grecce.Test.QC.{RepeatableMetaChar,ExtendedRegExChar}**.
+* Replaced calls to **error** with **[]**, in implementation of **Read**, in module **RegExChar.ExtendedRegExChar**.

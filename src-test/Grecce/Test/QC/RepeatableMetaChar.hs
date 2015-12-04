@@ -78,7 +78,13 @@ type Testable	= RepeatableMetaChar -> Test.QuickCheck.Property
 
 -- | The constant test-results for this data-type.
 results :: IO [Test.QuickCheck.Result]
-results	= mapM Test.QuickCheck.quickCheckResult [prop_consumptionProfile, prop_io, prop_isValid, prop_starHeight]	where
+results	= sequence [
+	Test.QuickCheck.quickCheckResult prop_consumptionProfile,
+	Test.QuickCheck.quickCheckResult prop_io,
+	Test.QuickCheck.quickCheckResult prop_isValid,
+	Test.QuickCheck.quickCheckResult prop_starHeight,
+	Test.QuickCheck.quickCheckResult prop_read
+ ] where
 	prop_consumptionProfile, prop_io, prop_isValid, prop_starHeight :: Testable
 	prop_consumptionProfile r	= Test.QuickCheck.label "prop_consumptionProfile" $ Data.Maybe.maybe True (>= minData) maybeMaxData && b == RegExDot.Consumer.getHasSpecificRequirement (RegExDot.Repeatable.base $ deconstruct r)	where
 		RegExDot.ConsumptionProfile.MkConsumptionProfile {
@@ -89,4 +95,9 @@ results	= mapM Test.QuickCheck.quickCheckResult [prop_consumptionProfile, prop_i
 	prop_io (MkRepeatableMetaChar r)		= Test.QuickCheck.label "prop_io" $ ToolShed.Test.ReversibleIO.isReversible r
 	prop_isValid r					= Test.QuickCheck.label "prop_isValid" $ ToolShed.SelfValidate.isValid r
 	prop_starHeight (MkRepeatableMetaChar r)	= Test.QuickCheck.label "prop_starHeight" $ RegExDot.Consumer.starHeight r == if RegExDot.ConsumptionBounds.isPrecise (RegExDot.Consumer.getConsumptionBounds r) then 0 else 1
+
+	prop_read :: String -> Test.QuickCheck.Property
+	prop_read garbage	= Test.QuickCheck.label "prop_read" $ case (reads garbage :: [(RepeatableMetaChar, String)]) of
+		[(_, _)]	-> True
+		_		-> True	-- Unless the read-implementation throws an exception.
 
