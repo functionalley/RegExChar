@@ -143,9 +143,7 @@ instance Read ExtendedRegExChar	where
 							 ]
 
 		in const [] `either` (
-			\pair@(extendedRegExChar, _)	-> if ToolShed.SelfValidate.isValid extendedRegExChar
-				then [pair]
-				else []
+			\pair@(extendedRegExChar, _)	-> [pair | ToolShed.SelfValidate.isValid extendedRegExChar]
 		) $ Parsec.parse (
 			(,) <$> extendedRegExCharParser <*> Parsec.getInput
 		) "ExtendedRegExChar" s
