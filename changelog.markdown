@@ -95,3 +95,4 @@
 * Simplified file **src-test/Main.hs**.
 * Added **prop_read** to modules; **Grecce.Test.QC.{RepeatableMetaChar,ExtendedRegExChar}**.
 * Replaced calls to **error** with **[]**, in implementation of **Read**, in module **RegExChar.ExtendedRegExChar**.
+* Added **.travis.yml** to control testing by <https://docs.travis-ci.com>.
