@@ -1,5 +1,7 @@
 # **RegExChar**
 
+[![Build Status](https://travis-ci.org/functionalley/RegExChar.svg?branch=master)](https://travis-ci.org/functionalley/RegExChar)
+
 This is "**RegExChar**", a regex-engine built from the polymorphic regex-engine "**RegExDot**" as a proof of concept.
 
 ## Installation
