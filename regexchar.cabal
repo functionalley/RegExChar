@@ -36,6 +36,7 @@ Data-files:
 
 -- None of these files are needed at run-time.
 Extra-source-files:
+    .ghci
     changelog.Debian
     changelog.markdown
     copyright
