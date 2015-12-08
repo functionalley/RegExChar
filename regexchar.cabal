@@ -75,10 +75,11 @@ Library
         array,
         base == 4.*,
         containers,
+        data-default,
         parsec == 3.*,
         regex-base,
-        regexdot >= 0.11.1.0,
-        toolshed >= 0.16
+        regexdot >= 0.12,
+        toolshed >= 0.17
 
     if impl(ghc >= 7.4.1)
         GHC-prof-options:	-prof -fprof-auto -fprof-cafs
@@ -108,12 +109,13 @@ Executable grecce
     Build-depends:
         base == 4.*,
         Cabal >= 1.10,
+        data-default,
         parallel >= 3.0,
         regexchar,
         regex-base,
         regex-posix,
-        regexdot >= 0.11.1.0,
-        toolshed >= 0.16
+        regexdot >= 0.12,
+        toolshed >= 0.17
 
     if flag(threaded)
         GHC-options:	-threaded
@@ -141,6 +143,6 @@ Test-Suite quickCheck
         base == 4.*,
         QuickCheck >= 2.4,
         regexchar,
-        regexdot >= 0.11.1.0,
-        toolshed >= 0.16
+        regexdot >= 0.12,
+        toolshed >= 0.17
 

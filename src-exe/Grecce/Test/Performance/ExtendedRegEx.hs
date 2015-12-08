@@ -53,6 +53,7 @@ module Grecce.Test.Performance.ExtendedRegEx(
 
 import qualified	Control.Arrow
 import			Control.Arrow((&&&))
+import qualified	Data.Default
 import qualified	Data.Maybe
 import qualified	Grecce.Test.Performance.ExtendedRegExTest		as Test.Performance.ExtendedRegExTest
 import qualified	Grecce.Test.Performance.ExtendedRegExTestsNegative	as Test.Performance.ExtendedRegExTestsNegative
@@ -62,7 +63,6 @@ import qualified	RegExDot.ExecutionOptions
 import qualified	RegExDot.RegEx
 import qualified	RegExDot.RegExOpts
 import qualified	Text.Regex.Posix
-import qualified	ToolShed.Defaultable
 import qualified	ToolShed.System.TimePure
 
 #if !MIN_VERSION_base(4,8,0)
@@ -102,7 +102,7 @@ run executionOptions maxTestComplexity (Left negativeTestRange)		= runNegativeTe
 			(
 				\extendedRegEx -> (
 					RegExDot.RegEx./~ RegExDot.RegExOpts.MkRegExOpts {	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
-						RegExDot.RegExOpts.compilationOptions	= ToolShed.Defaultable.defaultValue,
+						RegExDot.RegExOpts.compilationOptions	= Data.Default.def,
 						RegExDot.RegExOpts.executionOptions	= executionOptions,
 						RegExDot.RegExOpts.regEx		= extendedRegEx
 					}
@@ -136,7 +136,7 @@ run executionOptions maxTestComplexity (Right positiveTestRange)	= runPositiveTe
 				\extendedRegEx -> let
 					regExOpts :: RegExDot.RegExOpts.RegExOpts (RegExDot.RegEx.ExtendedRegEx Char)
 					regExOpts	= RegExDot.RegExOpts.MkRegExOpts {
-						RegExDot.RegExOpts.compilationOptions	= ToolShed.Defaultable.defaultValue,
+						RegExDot.RegExOpts.compilationOptions	= Data.Default.def,
 						RegExDot.RegExOpts.executionOptions	= executionOptions,
 						RegExDot.RegExOpts.regEx		= extendedRegEx
 					} -- Similar to 'RegexLike.makeRegexOpts', but without the requirement to read the regex.

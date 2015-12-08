@@ -50,6 +50,7 @@ module RegExChar.RegExOptsChar(
 ) where
 
 import qualified	Data.Array.IArray
+import qualified	Data.Default
 import qualified	RegExChar.ExtendedRegExChar	as ExtendedRegExChar
 import qualified	RegExDot.CompilationOptions
 import qualified	RegExDot.ConsumptionBounds
@@ -63,7 +64,6 @@ import qualified	RegExDot.Tree
 import qualified	Text.Regex.Base.RegexLike	as RegexLike
 import			Text.Regex.Base.Context()	-- Instance-declarations.
 import qualified	ToolShed.Data.List
-import qualified	ToolShed.Defaultable
 import qualified	ToolShed.Options
 
 infix 4 =~	-- Same as (==).
@@ -82,8 +82,8 @@ complyStrictlyWithPosix	= RegExDot.CompilationOptions.complyStrictlyWithPosix . 
 instance RegexLike.RegexOptions RegExOptsChar RegExDot.CompilationOptions.CompilationOptions RegExDot.ExecutionOptions.ExecutionOptions	where
 	blankCompOpt	= ToolShed.Options.blankValue
 	blankExecOpt	= ToolShed.Options.blankValue
-	defaultCompOpt	= ToolShed.Defaultable.defaultValue
-	defaultExecOpt	= ToolShed.Defaultable.defaultValue
+	defaultCompOpt	= Data.Default.def
+	defaultExecOpt	= Data.Default.def
 	setExecOpts e r	= r { RegExDot.RegExOpts.executionOptions = e }
 	getExecOpts	= RegExDot.RegExOpts.executionOptions
 

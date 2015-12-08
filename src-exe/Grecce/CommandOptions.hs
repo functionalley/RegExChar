@@ -1,5 +1,5 @@
 {-
-	Copyright (C) 2010 Dr. Alistair Ward
+	Copyright (C) 2010-2015 Dr. Alistair Ward
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -45,10 +45,10 @@ module Grecce.CommandOptions(
 	setVerbose
 ) where
 
+import qualified	Data.Default
 import qualified	RegExChar.ExtendedRegExChar	as ExtendedRegExChar
 import qualified	RegExDot.CompilationOptions
 import qualified	RegExDot.ExecutionOptions
-import qualified	ToolShed.Defaultable
 import qualified	ToolShed.Options
 
 -- | The set of command-line options; based on those provided by /egrep/.
@@ -67,8 +67,8 @@ data CommandOptions	= MkCommandOptions {
 -- | An arbitrary function which transforms the supplied 'RegExDot.ExecutionOptions.ExecutionOptions'.
 type Transformer	= CommandOptions -> CommandOptions
 
-instance ToolShed.Defaultable.Defaultable CommandOptions	where
-	defaultValue	= ToolShed.Options.blankValue {
+instance Data.Default.Default CommandOptions	where
+	def = ToolShed.Options.blankValue {
 		countMatches		= False,
 		extendedRegExChar	= Nothing,
 		invertMatch		= False,
@@ -76,8 +76,8 @@ instance ToolShed.Defaultable.Defaultable CommandOptions	where
 		listFilesWithMatches	= False,
 		listFilesWithoutMatch	= False,
 		verbose			= False,
-		compilationOptions	= ToolShed.Defaultable.defaultValue,
-		executionOptions	= ToolShed.Defaultable.defaultValue
+		compilationOptions	= Data.Default.def,
+		executionOptions	= Data.Default.def
 	}
 
 instance ToolShed.Options.Options CommandOptions	where
