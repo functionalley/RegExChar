@@ -21,7 +21,7 @@
  [@DESCRIPTION@]	Implements 'Test.QuickCheck.Arbitrary' & defines tests based on it.
 -}
 
-module Grecce.Test.QC.ExtendedRegExChar(
+module Grecce.Test.QuickCheck.ExtendedRegExChar(
 -- * Constants
 	results,
 -- * Types
@@ -37,7 +37,7 @@ module Grecce.Test.QC.ExtendedRegExChar(
 ) where
 
 import qualified	Data.Maybe
-import			Grecce.Test.QC.MetaChar()
+import			Grecce.Test.QuickCheck.MetaChar()
 import qualified	RegExChar.ExtendedRegExChar	as ExtendedRegExChar	-- CAVEAT: beware of the similar name.
 import qualified	RegExChar.MetaChar		as MetaChar
 import qualified	RegExDot.Anchor

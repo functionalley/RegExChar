@@ -23,7 +23,7 @@
  [@TODO@]	Test /Perl-style shortcuts/ & /Posix Character-classes/.
 -}
 
-module Grecce.Test.QC.MetaChar(
+module Grecce.Test.QuickCheck.MetaChar(
 -- * Constants
 	results,
 --	testCharacters,

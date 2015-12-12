@@ -23,9 +23,9 @@
 module Main(main) where
 
 import qualified	Control.Monad
-import qualified	Grecce.Test.QC.ExtendedRegExChar	as Test.QC.ExtendedRegExChar
-import qualified	Grecce.Test.QC.MetaChar			as Test.QC.MetaChar
-import qualified	Grecce.Test.QC.RepeatableMetaChar	as Test.QC.RepeatableMetaChar
+import qualified	Grecce.Test.QuickCheck.ExtendedRegExChar	as Test.QuickCheck.ExtendedRegExChar
+import qualified	Grecce.Test.QuickCheck.MetaChar			as Test.QuickCheck.MetaChar
+import qualified	Grecce.Test.QuickCheck.RepeatableMetaChar	as Test.QuickCheck.RepeatableMetaChar
 import qualified	System.Exit
 import qualified	ToolShed.Test.QuickCheck.Result
 
@@ -34,8 +34,8 @@ main :: IO ()
 main	= mapM_ (
 	(`Control.Monad.unless` System.Exit.exitFailure) . all ToolShed.Test.QuickCheck.Result.isSuccessful =<<
  ) [
-	Test.QC.MetaChar.results,
-	Test.QC.RepeatableMetaChar.results,
-	Test.QC.ExtendedRegExChar.results
+	Test.QuickCheck.MetaChar.results,
+	Test.QuickCheck.RepeatableMetaChar.results,
+	Test.QuickCheck.ExtendedRegExChar.results
  ]
 

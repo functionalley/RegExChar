@@ -20,7 +20,7 @@
  [@DESCRIPTION@]	Implements 'Test.QuickCheck.Arbitrary' & defines tests based on it.
 -}
 
-module Grecce.Test.QC.RepeatableMetaChar(
+module Grecce.Test.QuickCheck.RepeatableMetaChar(
 -- * Constants
 	results,
 -- * Types
@@ -33,7 +33,7 @@ module Grecce.Test.QC.RepeatableMetaChar(
 ) where
 
 import qualified	Data.Maybe
-import			Grecce.Test.QC.MetaChar()
+import			Grecce.Test.QuickCheck.MetaChar()
 import qualified	RegExChar.MetaChar	as MetaChar
 import qualified	RegExDot.Consumer
 import qualified	RegExDot.ConsumptionBounds
