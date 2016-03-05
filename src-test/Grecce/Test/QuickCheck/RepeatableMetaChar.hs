@@ -98,6 +98,6 @@ results	= sequence [
 
 	prop_read :: String -> Test.QuickCheck.Property
 	prop_read garbage	= Test.QuickCheck.label "prop_read" $ case (reads garbage :: [(RepeatableMetaChar, String)]) of
-		[(_, _)]	-> True
-		_		-> True	-- Unless the read-implementation throws an exception.
+		[_]	-> True
+		_	-> True	-- Unless the read-implementation throws an exception.
 
