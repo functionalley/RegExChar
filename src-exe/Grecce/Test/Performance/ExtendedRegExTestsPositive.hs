@@ -321,7 +321,7 @@ instance Test.Performance.ExtendedRegExTest.TestGeneratorRepository TestName	whe
 {- |
 	* The sum of the sequence descending from the specified integer; @n + (n - 1) + (n - 2) + ... + 2 + 1 + 0@.
 
-	* <http://en.wikipedia.org/wiki/Triangular_number>.
+	* <https://en.wikipedia.org/wiki/Triangular_number>.
 
 	* <http://mathworld.wolfram.com/TriangularNumber.html>.
 -}
