@@ -156,7 +156,7 @@ instance Show ExtendedRegExChar	where
 			RegExDot.RegEx.concatenation	= concatenation',
 			RegExDot.RegEx.sternAnchor	= maybeSternAnchor
 		}
-	} = RegExDot.RegEx.showsMaybeAnchor maybeBowAnchor . foldl (.) (showString "") (
+	} = RegExDot.RegEx.showsMaybeAnchor maybeBowAnchor . foldl (.) id (
 		(
 			let
 				showAlternatives :: RegExDot.RegEx.Alternatives Char -> [ShowS]
@@ -164,7 +164,7 @@ instance Show ExtendedRegExChar	where
 			in if hasNonCapturingTopLevelAlternatives'
 				then map (
 					\repeatablePattern	-> case RegExDot.Repeatable.base repeatablePattern of
-						RegExDot.RegEx.CaptureGroup alternatives	-> foldr (.) (showString "") $ showAlternatives alternatives
+						RegExDot.RegEx.CaptureGroup alternatives	-> foldr (.) id $ showAlternatives alternatives
 						_						-> error $ "Show RegExChar.ExtendedRegExChar: unexpected " ++ show repeatablePattern
 				)
 				else map (
