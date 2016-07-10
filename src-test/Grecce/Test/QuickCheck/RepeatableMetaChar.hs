@@ -29,6 +29,7 @@ module Grecce.Test.QuickCheck.RepeatableMetaChar(
 -- ** Type-synonyms
 --	Testable,
 -- * Functions
+-- ** Deconstructor
 --	deconstruct
 ) where
 

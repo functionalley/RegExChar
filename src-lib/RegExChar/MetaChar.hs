@@ -57,7 +57,7 @@ module RegExChar.MetaChar(
 -- * Functions
 --	implementPerlShortcut,
 	metaCharParser,
--- ** Accessors (Deconstructors)
+-- ** Deconstructor
 	deconstruct
 ) where
 
