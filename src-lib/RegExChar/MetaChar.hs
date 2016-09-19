@@ -50,15 +50,16 @@ module RegExChar.MetaChar(
 --	AssociationList,
 --	Dictionary,
 -- ** Type-synonyms
-	MetaChar(..),
+	MetaChar(
+		MkMetaChar,
+		deconstruct
+	),
 -- * Constants
 --	bracketExpressionRangeToken,
 --	posixCharacterClassDelimiters,
 -- * Functions
 --	implementPerlShortcut,
-	metaCharParser,
--- ** Deconstructor
-	deconstruct
+	metaCharParser
 ) where
 
 import			Control.Arrow((***))
@@ -106,11 +107,9 @@ instance RegExDot.Meta.ShortcutExpander Char	where
 		_			-> RegExDot.Meta.Literal c
 
 -- | A specialised instance, encapsulated to permit tailored instance-declarations.
-newtype MetaChar	= MkMetaChar (RegExDot.Meta.Meta Char)	deriving Eq
-
--- | Accessor.
-deconstruct :: MetaChar -> RegExDot.Meta.Meta Char
-deconstruct (MkMetaChar metaChar)	= metaChar
+newtype MetaChar	= MkMetaChar {
+	deconstruct	:: RegExDot.Meta.Meta Char
+} deriving Eq
 
 instance ToolShed.SelfValidate.SelfValidator MetaChar	where
 	getErrors	= ToolShed.SelfValidate.getErrors . deconstruct

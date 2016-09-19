@@ -28,12 +28,7 @@ module Grecce.Test.QuickCheck.ExtendedRegExChar(
 -- ** Data-types
 --	AlternativesChar(..),
 --	PatternChar(..),
---	RepeatablePatternChar(..),
--- * Functions
--- ** Accessors
---	deconstructAlternativesChar,
---	deconstructPatternChar,
---	deconstructRepeatablePatternChar
+--	RepeatablePatternChar(..)
 ) where
 
 import qualified	Data.Maybe
@@ -58,11 +53,9 @@ import qualified	ToolShed.SelfValidate
 import qualified	ToolShed.Test.ReversibleIO
 
 -- | A specialised instance, required to instantiate 'Test.QuickCheck.Arbitrary'.
-newtype AlternativesChar	= MkAlternativesChar (RegExDot.RegEx.Alternatives Char) deriving (Eq, Read, Show)
-
--- | Accessor.
-deconstructAlternativesChar :: AlternativesChar -> RegExDot.RegEx.Alternatives Char
-deconstructAlternativesChar (MkAlternativesChar a)	= a
+newtype AlternativesChar	= MkAlternativesChar {
+	deconstructAlternativesChar	:: RegExDot.RegEx.Alternatives Char
+} deriving (Eq, Read, Show)
 
 instance ToolShed.SelfValidate.SelfValidator AlternativesChar where
 	getErrors	= ToolShed.SelfValidate.getErrors . deconstructAlternativesChar
@@ -77,11 +70,9 @@ instance Test.QuickCheck.Arbitrary AlternativesChar	where
 	 ) -- TODO: permit zero alternatives.
 
 -- | A specialised instance, required to instantiate 'Test.QuickCheck.Arbitrary'.
-newtype PatternChar	= MkPatternChar (RegExDot.RegEx.Pattern Char) deriving (Eq, Read, Show)
-
--- | Accessor.
-deconstructPatternChar :: PatternChar -> RegExDot.RegEx.Pattern Char
-deconstructPatternChar (MkPatternChar pattern)	= pattern
+newtype PatternChar	= MkPatternChar {
+	deconstructPatternChar	:: RegExDot.RegEx.Pattern Char
+} deriving (Eq, Read, Show)
 
 instance ToolShed.SelfValidate.SelfValidator PatternChar	where
 	getErrors	= ToolShed.SelfValidate.getErrors . deconstructPatternChar
@@ -97,11 +88,9 @@ instance Test.QuickCheck.Arbitrary PatternChar	where
 	 ] -- CAVEAT: may recurse forever if 'RegExDot.RegEx.CaptureGroup / RegExDot.RegEx.Require' is too high.
 
 -- | A specialised instance, required to instantiate 'Test.QuickCheck.Arbitrary'.
-newtype RepeatablePatternChar	= MkRepeatablePatternChar (RegExDot.Repeatable.Repeatable PatternChar)	deriving (Eq, Read, Show)
-
--- | Accessor.
-deconstructRepeatablePatternChar :: RepeatablePatternChar -> RegExDot.Repeatable.Repeatable PatternChar
-deconstructRepeatablePatternChar (MkRepeatablePatternChar repeatable)	= repeatable
+newtype RepeatablePatternChar	= MkRepeatablePatternChar {
+	deconstructRepeatablePatternChar	:: RegExDot.Repeatable.Repeatable PatternChar
+} deriving (Eq, Read, Show)
 
 instance ToolShed.SelfValidate.SelfValidator RepeatablePatternChar	where
 	getErrors	= ToolShed.SelfValidate.getErrors . deconstructRepeatablePatternChar

@@ -25,12 +25,9 @@ module Grecce.Test.QuickCheck.RepeatableMetaChar(
 	results,
 -- * Types
 -- ** Data-types
---	RepeatableMetaChar,
+--	RepeatableMetaChar(..),
 -- ** Type-synonyms
---	Testable,
--- * Functions
--- ** Deconstructor
---	deconstruct
+--	Testable
 ) where
 
 import qualified	Data.Maybe
@@ -45,11 +42,9 @@ import qualified	ToolShed.SelfValidate
 import qualified	ToolShed.Test.ReversibleIO
 
 -- | A specialised instance, required to instantiate 'Test.QuickCheck.Arbitrary'.
-newtype RepeatableMetaChar	= MkRepeatableMetaChar (RegExDot.Repeatable.Repeatable MetaChar.MetaChar)	deriving (Eq, Read, Show)
-
--- | Accessor.
-deconstruct :: RepeatableMetaChar -> RegExDot.Repeatable.Repeatable MetaChar.MetaChar
-deconstruct (MkRepeatableMetaChar repeatableMetaChar)	= repeatableMetaChar
+newtype RepeatableMetaChar	= MkRepeatableMetaChar {
+	deconstruct	:: RegExDot.Repeatable.Repeatable MetaChar.MetaChar
+} deriving (Eq, Read, Show)
 
 instance ToolShed.SelfValidate.SelfValidator RepeatableMetaChar	where
 	getErrors	= ToolShed.SelfValidate.getErrors . deconstruct
