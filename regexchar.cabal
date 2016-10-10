@@ -25,7 +25,7 @@ Synopsis:	A POSIX, extended regex-engine.
 Build-type:	Simple
 Description:	Provides a POSIX, extended regex-engine, specialised from the underlying /polymorphic/ package /regexdot/, to merely process the traditional character-lists.
 Category:	Regex, Text
-Tested-with:	GHC == 7.4, GHC == 7.6, GHC == 7.8, GHC == 7.10.1
+Tested-with:	GHC == 7.4, GHC == 7.6, GHC == 7.8, GHC == 7.10.1, GHC == 8.0.1
 Homepage:	http://functionalley.eu/RegExChar/regExChar.html
 Maintainer:	mailto:regexchar@functionalley.eu
 Bug-reports:	mailto:regexchar@functionalley.eu
@@ -62,8 +62,7 @@ flag threaded
 
 Library
     Default-language:	Haskell2010
-    GHC-options:	-Wall -O2 -fno-warn-tabs
-    GHC-prof-options:	-prof -auto-all -caf-all
+    GHC-options:	-O2 -Wall -fno-warn-tabs
     Hs-source-dirs:	src-lib
 
     Exposed-modules:
@@ -82,19 +81,23 @@ Library
         toolshed >= 0.17
 
     if impl(ghc >= 7.4.1)
-        GHC-prof-options:	-prof -fprof-auto -fprof-cafs
+        GHC-prof-options:	-fprof-auto -fprof-cafs
     else
-        GHC-prof-options:	-prof -auto-all -caf-all
+        GHC-prof-options:	-auto-all -caf-all
 
     if impl(ghc >= 7.0) && flag(llvm)
         GHC-options:	-fllvm
 
 Executable grecce
     Default-language:	Haskell2010
-    GHC-options:	-Wall -O2 -fno-warn-tabs
-    GHC-prof-options:	-prof -auto-all -caf-all
+    GHC-options:	-O2 -Wall -fno-warn-tabs
     Hs-source-dirs:	src-exe
     Main-is:		Main.hs
+
+    if impl(ghc >= 7.4.1)
+        GHC-prof-options:	-fprof-auto -fprof-cafs
+    else
+        GHC-prof-options:	-auto-all -caf-all
 
 -- Required for 'cabal sdist'.
     Other-modules:

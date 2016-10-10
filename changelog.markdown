@@ -99,3 +99,4 @@
 * Added file **.ghci**.
 * Replaced use of module **ToolShed.Defaultable** with **Data.Default**.
 * Reimplemented **RegExChar.MetaChar.deconstruct**, **QuickCheck.ExtendedRegExChar.deconstruct**, **QuickCheck.RepeatableMetaChar.deconstruct** using record-syntax.
+* Tested with **ghc-8.0.1**.
