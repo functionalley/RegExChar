@@ -72,10 +72,10 @@ Define the offset of input-data, corresponding to a \fIcapture-group\fR which ma
 This is an addition to the options available in \fBegrep\fR, & is of relatively little use.
 .SS Performance
 .TP
-\fB +RTS -N\fR [\fICores\fR] [\fB-H\fR \fIHeap-size\fR] \fB-RTS\fR
+\fB +RTS -N\fR [\fICores\fR] [\fB-H\fR \fIMinimum heap-size\fR] \fB-RTS\fR
 If the executable has been linked with the threaded GHC-runtime, use \fICores\fR simultaneous threads (defaulting to the number of CPU-cores available),
 to process alternative sub-expressions and multiple files in parallel;
-When specifying this option, it is usually beneficial, given sufficient resources, to suggest a large initial heap-size for the garbage-collector.
+When specifying this option, it is usually beneficial, given sufficient resources, to suggest a large minimum heap-size for the garbage-collector.
 .br
 <http://www.haskell.org/ghc/docs/latest/html/users_guide/using-smp.html#parallel-options>.
 .PP
