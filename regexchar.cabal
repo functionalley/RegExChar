@@ -94,11 +94,6 @@ Executable grecce
     Hs-source-dirs:	src-exe
     Main-is:		Main.hs
 
-    if impl(ghc >= 7.4.1)
-        GHC-prof-options:	-fprof-auto -fprof-cafs
-    else
-        GHC-prof-options:	-auto-all -caf-all
-
 -- Required for 'cabal sdist'.
     Other-modules:
         Grecce.CommandOptions
@@ -120,15 +115,20 @@ Executable grecce
         regexdot >= 0.12,
         toolshed >= 0.17
 
-    if flag(threaded)
-        GHC-options:	-threaded
-
     if impl(ghc >= 7.0)
         if flag(llvm)
             GHC-options:	-fllvm
 
         if flag(threaded)
             GHC-options:	-rtsopts "-with-rtsopts=-N -H10M"
+
+    if impl(ghc >= 7.4.1)
+        GHC-prof-options:	-fprof-auto -fprof-cafs -rtsopts -with-rtsopts=-H10M
+    else
+        GHC-prof-options:	-auto-all -caf-all
+
+    if flag(threaded)
+        GHC-options:	-threaded
 
 Test-Suite test
     Default-language:	Haskell2010
