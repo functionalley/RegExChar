@@ -124,10 +124,11 @@ Executable grecce
         GHC-options:	-threaded
 
     if impl(ghc >= 7.0)
-        GHC-options:	-rtsopts "-with-rtsopts=-N -H10M"
-
         if flag(llvm)
             GHC-options:	-fllvm
+
+        if flag(threaded)
+            GHC-options:	-rtsopts "-with-rtsopts=-N -H10M"
 
 Test-Suite test
     Default-language:	Haskell2010
