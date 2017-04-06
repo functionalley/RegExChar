@@ -85,8 +85,12 @@ Library
     else
         GHC-prof-options:	-auto-all -caf-all
 
-    if impl(ghc >= 7.0) && flag(llvm)
-        GHC-options:	-fllvm
+    if impl(ghc >= 7.0)
+        if flag(llvm)
+            GHC-options:	-fllvm
+
+        if impl(ghc >= 8.0)
+            GHC-options:	-Wredundant-constraints
 
 Executable grecce
     Default-language:	Haskell2010
@@ -122,6 +126,9 @@ Executable grecce
         if flag(threaded)
             GHC-options:	-rtsopts "-with-rtsopts=-N -H10M"
 
+        if impl(ghc >= 8.0)
+            GHC-options:	-Wredundant-constraints
+
     if impl(ghc >= 7.4.1)
         GHC-prof-options:	-fprof-auto -fprof-cafs -rtsopts -with-rtsopts=-H10M
     else
@@ -149,4 +156,7 @@ Test-Suite test
         regexchar,
         regexdot >= 0.12,
         toolshed >= 0.17
+
+    if impl(ghc >= 8.0)
+        GHC-options:	-Wredundant-constraints
 
