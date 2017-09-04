@@ -33,9 +33,6 @@ module Main(main) where
 import qualified	Data.Default
 import qualified	Data.List
 import qualified	Data.Version
-import qualified	Distribution.Package
-import qualified	Distribution.Text
-import qualified	Distribution.Version
 import qualified	Grecce.CommandOptions					as CommandOptions
 import qualified	Grecce.Grep						as Grep
 import qualified	Grecce.Test.Assert.RegExOptsChar			as Test.Assert.RegExOptsChar
@@ -123,17 +120,13 @@ main	= do
 			printVersion, printUsage :: IO CommandOptions.CommandOptions
 
 			printVersion	= System.IO.hPutStrLn System.IO.stderr (
-				Distribution.Text.display packageIdentifier ++ "\n\nCompiled by " ++ show compiler ++ ".\n\nCopyright (C) 2010-2015 " ++ author ++ ".\nThis program comes with ABSOLUTELY NO WARRANTY.\nThis is free software, and you are welcome to redistribute it under certain conditions.\n\nWritten by " ++ author ++ "."
+				showString progName . showChar '-' . showsVersion Paths.version . showString "\n\nCompiled by " . showString System.Info.compilerName . showChar '-' . showsVersion System.Info.compilerVersion . showString ".\n\nCopyright (C) 2010-2017 " . showString author . showString ".\nThis program comes with ABSOLUTELY NO WARRANTY.\nThis is free software, and you are welcome to redistribute it under certain conditions.\n\nWritten by " $ showString author "."
 			 ) >> System.Exit.exitSuccess	where
-				packageIdentifier :: Distribution.Package.PackageIdentifier
-				packageIdentifier	= Distribution.Package.PackageIdentifier {
-					Distribution.Package.pkgName	= Distribution.Package.PackageName "grecce",
-					Distribution.Package.pkgVersion	= Distribution.Version.Version (Data.Version.versionBranch Paths.version) []
-				}
+				author :: String
+				author	= "Dr. Alistair Ward"
 
-				author, compiler :: String
-				author		= "Dr. Alistair Ward"
-				compiler	= System.Info.compilerName ++ "-" ++ Data.List.intercalate "." (map show $ Data.Version.versionBranch System.Info.compilerVersion)
+				showsVersion :: Data.Version.Version -> ShowS
+				showsVersion	= foldr (.) id . Data.List.intersperse (showChar '.') . map shows . Data.Version.versionBranch
 
 			printUsage	= System.IO.hPutStrLn System.IO.stderr usageMessage	>> System.Exit.exitSuccess
 
