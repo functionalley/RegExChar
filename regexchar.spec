@@ -22,7 +22,7 @@
 
 Summary:	A re-implementation of egrep, using a specialisation of a polymorphic regex-engine
 Name:		regexchar
-Version:	0.9.0.15
+Version:	0.9.0.16
 Release:	1
 License:	GPLv3
 # From '/usr/share/doc/packages/rpm/GROUPS'.

@@ -100,7 +100,10 @@
 * Replaced use of module **ToolShed.Defaultable** with **Data.Default**.
 * Reimplemented **RegExChar.MetaChar.deconstruct**, **QuickCheck.ExtendedRegExChar.deconstruct**, **QuickCheck.RepeatableMetaChar.deconstruct** using record-syntax.
 * Tested with **ghc-8.0.1**.
+
 ## 0.9.0.15
 * Added default RTS-options to **regexchar.cabal**.
 * Removed dependency on **Distribution.Package.PackageName**
+
+## 0.9.0.16
 
