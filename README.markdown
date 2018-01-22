@@ -10,7 +10,7 @@ It can be built and installed using [Cabal](https://www.haskell.org/cabal/users-
 
 ## Documentation
 * The directory "**man/**" contains the documentation.
-* More information about this application can be found at [RegExChar](http://functionalley.eu/RegExChar/regExChar.html).
+* More information about this application can be found at [RegExChar](https://functionalley.eu/RegExChar/regExChar.html).
 
 ## License
 

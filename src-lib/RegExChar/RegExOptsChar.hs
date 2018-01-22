@@ -15,12 +15,12 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -}
 {- |
  [@AUTHOR@]	Dr. Alistair Ward
 
- [@DESCRIPTION@]	Creates a /back-end/ implementation, conforming to <http://hackage.haskell.org/packages/archive/regex-base/latest/doc/html/Text-Regex-Base-RegexLike.html>.
+ [@DESCRIPTION@]	Creates a /back-end/ implementation, conforming to <https://hackage.haskell.org/packages/archive/regex-base/latest/doc/html/Text-Regex-Base-RegexLike.html>.
 
  [@CAVEATS@]
 
@@ -141,7 +141,7 @@ matchUntilFailure
 	-> [RegExDot.RegEx.MatchList Char]
 matchUntilFailure regExOptsChar inputData	= shiftOffsets 0 $ matchUntilFailure' inputData	where
 	matchUntilFailure' :: ExtendedRegExChar.InputData -> [RegExDot.RegEx.MatchList Char]
-	matchUntilFailure' unmatchedInputData	= case unmatchedInputData ExtendedRegExChar.+~ regExOptsChar of	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+	matchUntilFailure' unmatchedInputData	= case unmatchedInputData ExtendedRegExChar.+~ regExOptsChar of	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
 		(_, Just matchList, maybeSternAnchorResult)	-> matchList : if null (RegExDot.RegEx.extractDataFromMatchList matchList) then [] else matchUntilFailure' (RegExDot.RegEx.extractDataFromMatch' maybeSternAnchorResult)
 		_						-> []
 
@@ -180,14 +180,14 @@ instance RegexLike.RegexLike RegExOptsChar ExtendedRegExChar.InputData	where
 		)
 	 ) `fmap` RegExDot.Result.getMatchList extendedRegExResult	where
 		extendedRegExResult :: RegExDot.RegEx.Result Char
-		extendedRegExResult	= inputData ExtendedRegExChar.+~ regExOptsChar	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+		extendedRegExResult	= inputData ExtendedRegExChar.+~ regExOptsChar	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
 
 {- E.g.:
 	("xabcdx" RegExOptsChar.=~ "a(b(c?))*d") :: (String, Text.Regex.Base.RegexLike.MatchText String, String)
 	("x",array (0,2) [(0,("abcd",(1,4))),(1,("bc",(2,2))),(2,("c",(3,1)))],"x")
 -}
 --	matchOnceText :: RegExOptsChar -> ExtendedRegExChar.InputData -> Maybe (ExtendedRegExChar.InputData, MatchText ExtendedRegExChar.InputData, ExtendedRegExChar.InputData)
-	matchOnceText regExOptsChar inputData	= case inputData ExtendedRegExChar.+~ regExOptsChar of	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+	matchOnceText regExOptsChar inputData	= case inputData ExtendedRegExChar.+~ regExOptsChar of	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
 		(maybeBowAnchorResult, Just matchList, maybeSternAnchorResult)	-> Just (
 			RegExDot.RegEx.extractDataFromMatch' maybeBowAnchorResult,
 			toZeroIndexedArray . exciseNonCapturingTopLevelAlternatives regExOptsChar $ toMatchDataSpanList (
@@ -204,7 +204,7 @@ instance RegexLike.RegexLike RegExOptsChar ExtendedRegExChar.InputData	where
 	True
 -}
 --	matchTest :: RegExOptsChar -> ExtendedRegExChar.InputData -> Bool
-	matchTest	= flip (ExtendedRegExChar.=~)	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+	matchTest	= flip (ExtendedRegExChar.=~)	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
 
 {- |
 	* Match-operator.

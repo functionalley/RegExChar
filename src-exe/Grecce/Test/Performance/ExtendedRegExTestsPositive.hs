@@ -12,7 +12,7 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -}
 {- |
  [@AUTHOR@]	Dr. Alistair Ward
@@ -110,7 +110,7 @@ instance Test.Performance.ExtendedRegExTest.TestGeneratorRepository TestName	whe
 			),
 {-
  "(<testChar>|<testChar>{2})*c".
- Explanation:	from <http://www.haskell.org/pipermail/libraries/2009-March/011379.html>
+ Explanation:	from <https://www.haskell.org/pipermail/libraries/2009-March/011379.html>
  Performance:	disastrous performance.
 -}
 			(
@@ -323,7 +323,7 @@ instance Test.Performance.ExtendedRegExTest.TestGeneratorRepository TestName	whe
 
 	* <https://en.wikipedia.org/wiki/Triangular_number>.
 
-	* <http://mathworld.wolfram.com/TriangularNumber.html>.
+	* <https://mathworld.wolfram.com/TriangularNumber.html>.
 -}
 triangularSeries :: Integral i => i -> i
 triangularSeries i	= i * succ i `div` 2

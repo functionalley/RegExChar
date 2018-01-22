@@ -14,7 +14,7 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -}
 {- |
  [@AUTHOR@]	Dr. Alistair Ward
@@ -188,14 +188,14 @@ instance Show ExtendedRegExChar	where
 	:: InputData						-- ^ The input-data string.
 	-> RegExDot.RegExOpts.RegExOpts ExtendedRegExChar	-- ^ The match-options, parameterised by the regex-specification.
 	-> RegExDot.RegEx.Result Char
-inputData +~ regExOpts	= inputData RegExDot.RegEx.+~ fmap extendedRegEx regExOpts	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+inputData +~ regExOpts	= inputData RegExDot.RegEx.+~ fmap extendedRegEx regExOpts	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
 
 -- | A veneer over the underlying polymorphic operator, 'RegExDot.RegEx.=~'.
 (=~)
 	:: InputData						-- ^ The input-data string.
 	-> RegExDot.RegExOpts.RegExOpts ExtendedRegExChar	-- ^ The match-options, parameterised by the regex-specification.
 	-> Bool
-inputData =~ regExOpts	= inputData RegExDot.RegEx.=~ fmap extendedRegEx regExOpts	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+inputData =~ regExOpts	= inputData RegExDot.RegEx.=~ fmap extendedRegEx regExOpts	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
 
 -- | Pattern-mismatch operator.
 (/~)

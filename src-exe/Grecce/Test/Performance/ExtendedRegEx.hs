@@ -13,7 +13,7 @@
 	GNU General Public License for more details.
 
 	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -}
 {- |
  [@AUTHOR@]	Dr. Alistair Ward
@@ -96,12 +96,12 @@ run executionOptions maxTestComplexity (Left negativeTestRange)		= runNegativeTe
 				isMismatch,
 				if solitary
 					then const True	-- CAVEAT: should be 'undefined'.
-					else not . (Text.Regex.Posix.=~ extendedRegExCharString) :: String -> Bool	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+					else not . (Text.Regex.Posix.=~ extendedRegExCharString) :: String -> Bool	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
 			]
 		 ) . Control.Arrow.second (
 			(
 				\extendedRegEx -> (
-					RegExDot.RegEx./~ RegExDot.RegExOpts.MkRegExOpts {	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+					RegExDot.RegEx./~ RegExDot.RegExOpts.MkRegExOpts {	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
 						RegExDot.RegExOpts.compilationOptions	= Data.Default.def,
 						RegExDot.RegExOpts.executionOptions	= executionOptions,
 						RegExDot.RegExOpts.regEx		= extendedRegEx
@@ -124,11 +124,11 @@ run executionOptions maxTestComplexity (Right positiveTestRange)	= runPositiveTe
 					if RegExDot.ExecutionOptions.requireMatchList executionOptions
 						then if solitary
 							then const "<untested>"
---							else (Text.Regex.Posix.=~ extendedRegExCharString) :: String -> String	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
-							else (\(_, _, _, s) -> show s) . ((Text.Regex.Posix.=~ extendedRegExCharString) :: String -> (String, String, String, [String]))	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+--							else (Text.Regex.Posix.=~ extendedRegExCharString) :: String -> String	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+							else (\(_, _, _, s) -> show s) . ((Text.Regex.Posix.=~ extendedRegExCharString) :: String -> (String, String, String, [String]))	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
 						else show . if solitary
 							then const True	-- CAVEAT: should be 'undefined'.
-							else (Text.Regex.Posix.=~ extendedRegExCharString) :: String -> Bool	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+							else (Text.Regex.Posix.=~ extendedRegExCharString) :: String -> Bool	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
 				]
 			)
 		 ) . Control.Arrow.second (
@@ -141,8 +141,8 @@ run executionOptions maxTestComplexity (Right positiveTestRange)	= runPositiveTe
 						RegExDot.RegExOpts.regEx		= extendedRegEx
 					} -- Similar to 'RegexLike.makeRegexOpts', but without the requirement to read the regex.
 				in if RegExDot.ExecutionOptions.requireMatchList executionOptions
-					then show . (RegExDot.RegEx.+~ regExOpts)	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
-					else show . (RegExDot.RegEx.=~ regExOpts)	-- CAVEAT: <http://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+					then show . (RegExDot.RegEx.+~ regExOpts)	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
+					else show . (RegExDot.RegEx.=~ regExOpts)	-- CAVEAT: <https://hackage.haskell.org/trac/haskell-prime/wiki/QualifiedOperators>.
 			) &&& show . ExtendedRegExChar.MkExtendedRegExChar False {-hasNonCapturingTopLevelAlternatives-}
 		 ) . testGenerator
 

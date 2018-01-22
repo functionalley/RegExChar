@@ -43,7 +43,7 @@
 * Changed identifier for type-parameters, to better reflect its role.
 * Removed dependency on archaic module "**ToolShed.Arithmetic**".
 * Reacted to the creation of module "**ToolShed.Defaultable**".
-* Uploaded to [Hackage](http://hackage.haskell.org/package/regexchar).
+* Uploaded to [Hackage](https://hackage.haskell.org/package/regexchar).
 
 ## 0.9.0.8
 * Amended the *.cabal*-file to more correctly specify dependency on package "**toolshed**".
