@@ -1,4 +1,4 @@
-# 2010-11-18 Dr. Alistair Ward <regexchar@functionalley.eu>
+# 2010-11-18 Dr. Alistair Ward <regexchar@functionalley.com>
 
 ## 0.9.0.0
 * First version of the package.
@@ -106,4 +106,7 @@
 * Removed dependency on **Distribution.Package.PackageName**
 
 ## 0.9.0.16
+
+## 0.9.0.17
+Changed references to author's domain-name.
 

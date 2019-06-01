@@ -13,7 +13,7 @@ It can be built and installed using [Cabal](https://www.haskell.org/cabal/users-
 
 ## Documentation
 * The directory "**man/**" contains the documentation.
-* More information about this application can be found at [RegExChar](https://functionalley.eu/RegExChar/regExChar.html).
+* More information about this application can be found at [RegExChar](https://functionalley.com/RegExChar/regExChar.html).
 
 ## License
 
@@ -21,7 +21,7 @@ For information on copying and distributing this package, see the file "**LICENS
 
 ## Bug-reporting
 
-Bug-reports should be emailed to <regexchar@functionalley.eu>.
+Bug-reports should be emailed to <regexchar@functionalley.com>.
 
 ## Testing
 

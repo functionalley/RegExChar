@@ -22,13 +22,13 @@
 
 Summary:	A re-implementation of egrep, using a specialisation of a polymorphic regex-engine
 Name:		regexchar
-Version:	0.9.0.16
+Version:	0.9.0.17
 Release:	1
 License:	GPLv3
 # From '/usr/share/doc/packages/rpm/GROUPS'.
 Group:		Applications/Text
-Source0:	https://functionalley.eu/Downloads/sdist/%tarBall
-URL:		https://functionalley.eu/RegExChar/regExChar.html
+Source0:	https://functionalley.com/Downloads/sdist/%tarBall
+URL:		https://functionalley.com/RegExChar/regExChar.html
 Prefix:		/usr
 BuildRequires:	haskell-platform
 
@@ -64,6 +64,6 @@ rm -rf -- '%_builddir/%package/' '%buildroot/'	# Only the '.rpm' is required.
 %attr(0644, root, root)	%doc	%_mandir/man1/grecce.1.gz
 
 %changelog
-* Wed May 09 2012	Alistair Ward	<regexchar@functionalley.eu>	0.9.0.10-1
+* Wed May 09 2012	Alistair Ward	<regexchar@functionalley.com>	0.9.0.10-1
 First cut.
 
