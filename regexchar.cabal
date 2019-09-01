@@ -107,6 +107,7 @@ Executable grecce
         Grecce.Test.Performance.ExtendedRegExTest
         Grecce.Test.Performance.ExtendedRegExTestsNegative
         Grecce.Test.Performance.ExtendedRegExTestsPositive
+        Paths_regexchar
 
     Build-depends:
         base == 4.*,
