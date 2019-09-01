@@ -30,7 +30,7 @@ Homepage:	https://functionalley.com/RegExChar/regExChar.html
 Maintainer:	mailto:regexchar@functionalley.com
 Bug-reports:	mailto:regexchar@functionalley.com
 
--- These files can be read by the application from 'Paths_weekdaze.datadir'.
+-- These files can be read by the application from 'Paths_regexchar.datadir'.
 Data-files:
     data/*.txt
 
