@@ -110,3 +110,6 @@
 ## 0.9.0.17
 Changed references to author's domain-name.
 
+## 0.9.0.18
+Updated list of test-compilers.
+
